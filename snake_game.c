@@ -13,21 +13,41 @@
 
 
 
-int main(void){
 
+int main(void){
 
 	draw_game_screen();
 
-	int usr_option;
+	//int usr_option;
 
-	while((usr_option = getchar()) != EOF){
+	/*while((usr_option = getch()) != EOF){
 		
 		switch(usr_option){
-			
+			case 's':
+				//Start game
+			case 'q':
+				//quit game
+			case 'n':
+				//continue
+			case 'c':
+				//cancel
+			case 'p':
+				//pause
 			default:
+				printf("Please enter a valid option character\n");
 		}
 
-	}
+	}*/
+
+	//print game results
+	//print_game_result();
+
+	//quit game after a few seconds
+	//quit_game();
+	getch();
+
+	endwin();
+	
 	
 	return 0;
 }
