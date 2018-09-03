@@ -8,21 +8,38 @@
 *
 **********************************/
 
+#include <ncurses.h>
+#include "constants.h"
+
+
+#define INITIAL_LENGTH 5
+
+typedef struct part{
+	chtype part_symbol;
+
+	int x;
+	
+	int y;
+
+}Snake_part;
+
 typedef struct snake{
 
 	int length;
 
-	
+	Snake_part parts[MAX_NUM_PARTS];
 
-};
+}Snake;
+
+
 
 //Function prototypes for the snake's behaviour
 
-void grow(snake* sn);
-void move(snake* sn);
-void turnLeft(snake* sn);
-void turnRight(snake* sn);
-void turnUp(snake* sn);
-void turnDown(snake* sn);
-void eat(snake* sn);
+void grow(Snake* sn);
+void move_snake(Snake* sn);
+void turnLeft(Snake* sn);
+void turnRight(Snake* sn);
+void turnUp(Snake* sn);
+void turnDown(Snake* sn);
+void eat(Snake* sn);
 
