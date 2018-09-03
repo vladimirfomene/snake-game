@@ -11,3 +11,5 @@
 #define NUMBER_OF_LEVELS 12
 
 #define NUM_SQUARES_PER_LEVEL 15
+
+#define MAX_NUM_PARTS 185
