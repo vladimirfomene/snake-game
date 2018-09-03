@@ -13,4 +13,4 @@ snake_game: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 clean:
-	$(RM) *.o Makefile snake_game
+	$(RM) *.o snake_game
