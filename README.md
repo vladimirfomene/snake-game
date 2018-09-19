@@ -11,3 +11,5 @@ You need to install ncurses on your system.
 
 * For Fedora Linux 22.x+
 `sudo dnf install ncurses-devel`
+
+[Firefox next instructions](https://developer.mozilla.org/docs/Developer_Guide/So_You_Just_Built_Firefox)
