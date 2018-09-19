@@ -18,26 +18,27 @@ int main(void){
 
 	draw_game_screen();
 
-	//int usr_option;
+	int player_option;
 
-	/*while((usr_option = getch()) != EOF){
-		
-		switch(usr_option){
-			case 's':
-				//Start game
-			case 'q':
-				//quit game
-			case 'n':
-				//continue
-			case 'c':
-				//cancel
-			case 'p':
-				//pause
-			default:
-				printf("Please enter a valid option character\n");
-		}
+	while(1){
+		if ((player_option = getch()) == ERR) {
+        	//move if user has not press key
+        } else {
+			switch(player_option){
+				case 'q':
+					//quit game
+				case 'n':
+					//continue
+				case 'c':
+					//cancel
+				case 'p':
+					//pause
+				default:
+					printf("Please enter a valid option.\n");
+			}
+        }
+	}
 
-	}*/
 
 	//print game results
 	//print_game_result();
