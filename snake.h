@@ -14,12 +14,13 @@
 
 #define INITIAL_LENGTH 5
 
+//Attributes which define the state of the snake
 typedef struct part{
 	chtype part_symbol;
 
-	int x;
-	
 	int y;
+	
+	int x;
 
 }Snake_part;
 
@@ -36,10 +37,18 @@ typedef struct snake{
 //Function prototypes for the snake's behaviour
 
 void grow(Snake* sn);
+
+Snake init_snake(GameWindow* win);
+
 void move_snake(Snake* sn);
+
 void turnLeft(Snake* sn);
+
 void turnRight(Snake* sn);
+
 void turnUp(Snake* sn);
+
 void turnDown(Snake* sn);
+
 void eat(Snake* sn);
 
