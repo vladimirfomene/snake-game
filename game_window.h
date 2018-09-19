@@ -16,6 +16,7 @@
 
 #define PADDING 5
 
+//Attributes representing the state of the game window.
 typedef struct game_window{
 
 	int height;
@@ -24,7 +25,7 @@ typedef struct game_window{
 
 	int num_squares_per_level;
 
-	int usr_points;
+	int player_points;
 
 	int level;
 }GameWindow;
