@@ -10,20 +10,21 @@
 #include "game_window.h"
 
 
-void draw_game_screen(){
+GameWindow* draw_game_screen(){
 
 	initscr();
 	cbreak();
 	noecho();
 	keypad(stdscr, TRUE);
-	nodelay(stdscr, TRUE); 
+	nodelay(stdscr, TRUE);
+	curs_set(FALSE); 
 	start_color(); //enable color attributes
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	GameWindow* game_window = setup_game_screen();
 	print_header(game_window);
 	print_footer(game_window);
-	update_screen();
-
+	
+	return game_window;
 }
 
 GameWindow* setup_game_screen(){
@@ -86,7 +87,7 @@ void drop_square(GameWindow* win){
 	int random_x = (int) (win->width * (rand() / (double) RAND_MAX));
 	int random_y = (int) (win->height * (rand() / (double) RAND_MAX));
 
-	mvaddch(random_y, random_x, ACS_BLOCK);
+	mvaddch(random_y, random_x, ACS_DIAMOND);
 
 }
 

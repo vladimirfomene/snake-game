@@ -45,7 +45,7 @@ void print_header(GameWindow* game_window);
 
 void print_footer(GameWindow* game_window);
 
-void draw_game_screen();
+GameWindow* draw_game_screen();
 
 GameWindow* setup_game_screen();
 
