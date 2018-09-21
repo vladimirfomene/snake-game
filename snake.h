@@ -10,6 +10,7 @@
 
 #include <ncurses.h>
 #include "constants.h"
+#include "game_window.h"
 
 
 #define INITIAL_LENGTH 5
@@ -36,9 +37,11 @@ typedef struct snake{
 
 //Function prototypes for the snake's behaviour
 
-void grow(Snake* sn);
+void grow(Snake* sn, Snake_part new_part);
 
-Snake init_snake(GameWindow* win);
+Snake* init_snake(GameWindow* win);
+
+void draw_snake(Snake* snake);
 
 void move_snake(Snake* sn);
 
