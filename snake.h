@@ -43,15 +43,15 @@ Snake* init_snake(GameWindow* win);
 
 void draw_snake(Snake* snake);
 
-void move_snake(Snake* sn);
+void move_snake(Snake* sn, char dir);
 
-void turnLeft(Snake* sn);
+void turn_left(Snake* sn, char* dir);
 
-void turnRight(Snake* sn);
+void turn_right(Snake* sn, char* dir);
 
-void turnUp(Snake* sn);
+void turn_up(Snake* sn, char* dir);
 
-void turnDown(Snake* sn);
+void turn_down(Snake* sn, char* dir);
 
 void eat(Snake* sn);
 

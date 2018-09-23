@@ -36,11 +36,20 @@ void move_snake(Snake* sn, char dir){
 	}
 
 	for(int i = 0; i < sn->length; i++){
+		//keep track of previous location
+		int prev_y = sn->parts[i].y;
+		int prev_x = sn->parts[i].x;
 
-		mvaddch(next_y, next_x, snake->parts[i].part_symbol);
-		mvdelch(sn->parts[i].y, sn->parts[i].x);
-		next_x = sn->parts[i].x;
-		next_y = sn->parts[i].y;
+		//Set new location
+		sn->parts[i].y = next_y;
+		sn->parts[i].x = next_x;
+
+		mvaddch(sn->parts[i].y, sn->parts[i].x, sn->parts[i].part_symbol);
+		mvdelch(prev_y, prev_x);
+		//update_screen();
+		//usleep(300000);
+		next_x = prev_x;
+		next_y = prev_y;
 	}
 }
 
@@ -64,22 +73,22 @@ void draw_snake(Snake* snake){
 
 void turn_left(Snake* sn, char* dir){
 	*dir = 'l';
-	move_snake(sn);
+	move_snake(sn, *dir);
 }
 
 void turn_right(Snake* sn, char* dir){
 	*dir = 'r';
-	move_snake(sn);
+	move_snake(sn, *dir);
 }
 
 void turn_up(Snake* sn, char* dir){
 	*dir = 'u';
-	move_snake(sn);
+	move_snake(sn, *dir);
 }
 
 void turn_down(Snake* sn, char* dir){
 	*dir = 'd';
-	move_snake(sn);
+	move_snake(sn, *dir);
 }
 
 void eat(Snake* sn);
