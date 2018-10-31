@@ -19,6 +19,8 @@
 //Attributes representing the state of the game window.
 typedef struct game_window{
 
+	WINDOW* canvas;
+
 	int height;
 
 	int width;
@@ -33,17 +35,15 @@ typedef struct game_window{
 
 //Functions for game window behaviour
 
-void drop_square(GameWindow* win);
-
 void is_level_completed(GameWindow* win);
 
-void update_screen();
+void update_screen(WINDOW* screen);
 
 void exit_game_screen(GameWindow* win);
 
-void print_header(GameWindow* game_window);
+WINDOW* setup_header(GameWindow* game_window);
 
-void print_footer(GameWindow* game_window);
+WINDOW* setup_footer(GameWindow* game_window);
 
 GameWindow* draw_game_screen();
 
