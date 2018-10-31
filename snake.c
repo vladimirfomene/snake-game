@@ -7,13 +7,13 @@
 **********************************/
 
 #include "snake.h"
-
+//Fix friction in move.
 void grow(Snake* sn, Snake_part new_part){
 	sn->length += 1;
 	sn->parts[sn->length] = new_part;
 }
 
-void move_snake(Snake* sn, char dir){
+void move_snake(Snake* sn, char dir, WINDOW* screen){
 	int next_x, next_y;
 
 	switch(dir){
@@ -43,11 +43,11 @@ void move_snake(Snake* sn, char dir){
 		//Set new location
 		sn->parts[i].y = next_y;
 		sn->parts[i].x = next_x;
-
-		mvaddch(sn->parts[i].y, sn->parts[i].x, sn->parts[i].part_symbol);
-		mvdelch(prev_y, prev_x);
-		//update_screen();
-		//usleep(300000);
+		
+		//move a part of the snake
+		mvwaddch(screen, sn->parts[i].y, sn->parts[i].x, sn->parts[i].part_symbol);
+		
+		//set location for the next snake part
 		next_x = prev_x;
 		next_y = prev_y;
 	}
@@ -65,30 +65,26 @@ Snake* init_snake(GameWindow* win){
 	return new_snake;
 }
 
-void draw_snake(Snake* snake){
+void draw_snake(Snake* snake, WINDOW* screen){
 	for(int i = 0; i < snake->length; i++){
-		mvaddch(snake->parts[i].y, snake->parts[i].x, snake->parts[i].part_symbol);
+		mvwaddch(screen, snake->parts[i].y, snake->parts[i].x, snake->parts[i].part_symbol);
 	}
 }
 
 void turn_left(Snake* sn, char* dir){
 	*dir = 'l';
-	move_snake(sn, *dir);
 }
 
 void turn_right(Snake* sn, char* dir){
 	*dir = 'r';
-	move_snake(sn, *dir);
 }
 
 void turn_up(Snake* sn, char* dir){
 	*dir = 'u';
-	move_snake(sn, *dir);
 }
 
 void turn_down(Snake* sn, char* dir){
 	*dir = 'd';
-	move_snake(sn, *dir);
 }
 
 void eat(Snake* sn);

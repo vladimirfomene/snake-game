@@ -41,9 +41,9 @@ void grow(Snake* sn, Snake_part new_part);
 
 Snake* init_snake(GameWindow* win);
 
-void draw_snake(Snake* snake);
+void draw_snake(Snake* snake, WINDOW* screen);
 
-void move_snake(Snake* sn, char dir);
+void move_snake(Snake* sn, char dir, WINDOW* screen);
 
 void turn_left(Snake* sn, char* dir);
 
