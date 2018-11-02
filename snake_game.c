@@ -19,9 +19,14 @@ typedef struct cors{
 void drop_diamond(GameWindow* win, Snake_part* diamond, point pt);
 bool is_diamond_on_snake(Snake* snake, int ptx, int pty);
 point generate_point(GameWindow* win, Snake* snake);
+bool has_collided_with_self(Snake* snake);
 bool has_collided_with_walls(Snake* snake, GameWindow* win);
 bool has_collided_with_diamond(Snake* snake, Snake_part* diamond);
+void free_window_resources(WINDOW* footer, WINDOW* header, GameWindow* win, Snake_part* diamond);
+void handle_exit(GameWindow* win, char* msg);
 Snake_part* init_diamond();
+void quit();
+void game_pause();
 
 
 
@@ -46,7 +51,9 @@ int main(void){
 	nodelay(win->canvas, TRUE);
 	keypad(win->canvas, TRUE);
 	
-	
+	bool has_eaten = false;
+
+	int tail_part_x, tail_part_y;
 	
 	while(true){
 		wclear(win->canvas);
@@ -57,13 +64,13 @@ int main(void){
 
 		switch(player_option){
 				case 'q':
-					//quit game
-				case 'n':
-					//continue
-				case 'c':
-					//cancel
+					//free all resources
+					quit();
+					free_window_resources(footer, header, win, diamond);
+					return 0;
 				case 'p':
-					//pause
+					game_pause();
+					break;
 				case KEY_DOWN:
 					turn_down(snake, &dir);
 					break;
@@ -80,40 +87,72 @@ int main(void){
 					break;
 			}
 
-		//check for collision
-		check_for_collision(snake, win->canvas);
+
 		move_snake(snake, dir, win->canvas);
-		
+
+		if(has_eaten){
+			
+			Snake_part new_part = {ACS_DIAMOND, tail_part_y, tail_part_x};
+
+			//grow the snake
+			grow(snake, new_part);
+
+			
+			//relocate a diamond
+			point new_point = generate_point(win, snake);
+			pt.x = new_point.x;
+			pt.y = new_point.y;
+			
+			has_eaten = false;
+
+		}
+
 		if(has_collided_with_diamond(snake, diamond)){
 
 			win->num_squares_per_level = win->num_squares_per_level - 1;
 			
-			//re-render diamond
-			point new_point = generate_point(win, snake);
-			
-			//drop your a new diamond
-			drop_diamond(win, diamond, new_point);
+			has_eaten = true;
 
-			//grow the snake, and re-render it.
+			tail_part_x = snake->parts[snake->length - 1].x;
+			tail_part_y = snake->parts[snake->length - 1].y;
+
+			//increment player points
+			win->player_points++;
+
+
+			
 			
 			if(win->num_squares_per_level == 0){
-				//check if you are at the end of the game
-				//if yes, Print congratulations message
-				//otherwise, move game to the next level.
+				if(win->level == NUMBER_OF_LEVELS){
+					handle_exit(win, "You Won!!!!!, Press q to quit the game");
+					free_window_resources(footer, header, win, diamond);
+					quit();
+					return 0;
+				}else{
+					win->level++;
+				}
 
 			}
+
+			//Update header
+			WINDOW* tmp = header;
+			header = setup_header(win);
+			update_screen(header);
+			discard_screen(tmp);
 			
 		}
 
-		if(has_collided_with_walls(Snake* snake, GameWindow* win)){
-			//End the game, ask them if they want to continue
-			//If so restart the game at that level.
+		if(has_collided_with_walls(snake, win) || has_collided_with_self(snake)){
+			handle_exit(win, "You Loose!!, Press q to quit the game");
+			free_window_resources(footer, header, win, diamond);
+			quit();
+			return 0;
 		}
 		
 		update_screen(win->canvas);
 		
-		//pause DELAY * win->level
-		usleep(300000);
+		
+		usleep(DELAY * (win->level));
 	}
 
 
@@ -182,4 +221,45 @@ bool has_collided_with_walls(Snake* snake, GameWindow* win){
 	bool has_collided_with_right = head.x > win->width;
 
 	return has_collided_with_top || has_collided_with_bottom || has_collided_with_left || has_collided_with_right;
+}
+
+void quit(){
+	endwin();
+}
+
+void free_window_resources(WINDOW* footer, WINDOW* header, GameWindow* win, Snake_part* diamond){
+	discard_screen(footer);
+	discard_screen(header);
+	discard_screen(win->canvas);
+	free(win);
+	free(diamond);
+}
+
+void game_pause(){
+	int ch;
+	do{
+		ch = getchar();
+	}while((char) ch != 'p');
+
+}
+
+bool has_collided_with_self(Snake* snake){
+
+	Snake_part head = snake->parts[0];
+	
+	for(int i = 1; i < snake->length; i++){
+		if(snake->parts[i].x == head.x && snake->parts[i].y == head.y)
+			return true;
+	}
+	return false;
+}
+
+void handle_exit(GameWindow* win, char* msg){
+	int endch;
+	do{	
+		wclear(win->canvas);
+		print_message(win, msg);
+		update_screen(win->canvas);
+		endch = getchar();
+	}while((char) endch == 'q');
 }

@@ -39,6 +39,8 @@ void is_level_completed(GameWindow* win);
 
 void update_screen(WINDOW* screen);
 
+void discard_screen(WINDOW* screen);
+
 void exit_game_screen(GameWindow* win);
 
 WINDOW* setup_header(GameWindow* game_window);
@@ -48,4 +50,6 @@ WINDOW* setup_footer(GameWindow* game_window);
 GameWindow* draw_game_screen();
 
 GameWindow* setup_game_screen();
+
+void print_message(GameWindow* win, char* str);
 

@@ -53,5 +53,3 @@ void turn_up(Snake* sn, char* dir);
 
 void turn_down(Snake* sn, char* dir);
 
-void eat(Snake* sn);
-

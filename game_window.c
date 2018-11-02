@@ -83,11 +83,9 @@ WINDOW* setup_footer(GameWindow* game_window){
 	//Print footer instructions
 	attron(COLOR_PAIR(1));
 	
-	wprintw(footer, " Press P to pause,  ");
+	wprintw(footer, " Press P to pause and unpause,  ");
 
 	wprintw(footer, "Press Q to quit,  ");
-	
-	wprintw(footer, "Press R to resume  ");
 
 	wprintw(footer, "Play with arrow keys");
 
@@ -101,4 +99,12 @@ WINDOW* setup_footer(GameWindow* game_window){
 
 void update_screen(WINDOW* screen){
 	wrefresh(screen);
+}
+
+void discard_screen(WINDOW* screen){
+	delwin(screen);
+}
+
+void print_message(GameWindow* win, char* str){
+	wprintw(win->canvas, str);
 }

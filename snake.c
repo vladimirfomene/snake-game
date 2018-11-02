@@ -7,10 +7,10 @@
 **********************************/
 
 #include "snake.h"
-//Fix friction in move.
+
+
 void grow(Snake* sn, Snake_part new_part){
-	sn->length += 1;
-	sn->parts[sn->length] = new_part;
+	sn->parts[sn->length++] = new_part;
 }
 
 void move_snake(Snake* sn, char dir, WINDOW* screen){
@@ -86,6 +86,4 @@ void turn_up(Snake* sn, char* dir){
 void turn_down(Snake* sn, char* dir){
 	*dir = 'd';
 }
-
-void eat(Snake* sn);
 
