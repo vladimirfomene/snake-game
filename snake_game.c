@@ -130,6 +130,7 @@ int main(void){
 					return 0;
 				}else{
 					win->level++;
+					win->num_squares_per_level = NUM_SQUARES_PER_LEVEL;
 				}
 
 			}
