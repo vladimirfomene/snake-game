@@ -1,13 +1,11 @@
 /*********************************
 * constants.h
 * ================================
-* Copyright Vladimir Fomene 2018
 * Defines global constants used 
 * by the whole snake-game program
-*
+* Copyright Vladimir Fomene 2018
 **********************************/
 
-#include <unistd.h>
 
 #define NUMBER_OF_LEVELS 12
 
@@ -16,3 +14,7 @@
 #define MAX_NUM_PARTS 185
 
 #define DELAY 300000
+
+#define PADDING 5
+
+#define INITIAL_LENGTH 5

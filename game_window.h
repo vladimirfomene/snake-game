@@ -1,11 +1,10 @@
 /*********************************
 * game_window.h
 * ================================
-* Copyright Vladimir Fomene 2018
 * Defines an object for the game 
-* window and define function prototypes
-* to define its behaviour.
-*
+* window and defines function prototypes
+* for its behaviour.
+* Copyright Vladimir Fomene 2018
 **********************************/
 
 #include <ncurses.h>
@@ -14,7 +13,6 @@
 
 #include "constants.h"
 
-#define PADDING 5
 
 //Attributes representing the state of the game window.
 typedef struct game_window{
@@ -32,6 +30,10 @@ typedef struct game_window{
 	int level;
 }GameWindow;
 
+typedef struct cors{
+	int y;
+	int x;
+}point;
 
 //Functions for game window behaviour
 
@@ -47,9 +49,9 @@ WINDOW* setup_header(GameWindow* game_window);
 
 WINDOW* setup_footer(GameWindow* game_window);
 
-GameWindow* draw_game_screen();
+GameWindow* draw_game_canvas();
 
-GameWindow* setup_game_screen();
+GameWindow* setup_game_canvas();
 
 void print_message(GameWindow* win, char* str);
 

@@ -1,10 +1,9 @@
 /*********************************
 * game_window.c
 * ================================
-* Copyright Vladimir Fomene 2018
 * Implement all the functions defined
 * in game_window.h. 
-*
+* Copyright Vladimir Fomene 2018
 **********************************/
 
 #include <stdbool.h>
@@ -13,7 +12,7 @@
 
 
 
-GameWindow* draw_game_screen(){
+GameWindow* draw_game_canvas(){
 
 	initscr();
 	cbreak();
@@ -22,10 +21,10 @@ GameWindow* draw_game_screen(){
 	start_color(); //enable color attributes
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	
-	return setup_game_screen();
+	return setup_game_canvas();
 }
 
-GameWindow* setup_game_screen(){
+GameWindow* setup_game_canvas(){
 	GameWindow* game_window = (GameWindow*) malloc(sizeof(GameWindow));
 	game_window->height = LINES - 4;
 	game_window->width = COLS;
@@ -45,10 +44,8 @@ WINDOW* setup_header(GameWindow* game_window){
 	//Get new screen dimensions
 	int header_height, header_width;
 	getmaxyx(header, header_height, header_width);
-	
-	wmove(header, 0, 0);
 
-	attron(COLOR_PAIR(1));
+	//Print out header details
 	wprintw(header, " SNAKE GAME");
 	
 	wmove(header, 0, (header_width / 2) - (strlen("LEVEL 12") / 2));
@@ -56,7 +53,7 @@ WINDOW* setup_header(GameWindow* game_window){
 
 	wmove(header, 0, (header_width - 1) - (strlen("POINTS 185") + PADDING));
 	wprintw(header, "POINTS %d", game_window->player_points);
-	attroff(COLOR_PAIR(1));
+	
 
 	//Draw horizontal line
 	wmove(header, 1, 0);
@@ -81,16 +78,12 @@ WINDOW* setup_footer(GameWindow* game_window){
 
 	
 	//Print footer instructions
-	attron(COLOR_PAIR(1));
 	
 	wprintw(footer, " Press P to pause and unpause,  ");
 
 	wprintw(footer, "Press Q to quit,  ");
 
 	wprintw(footer, "Play with arrow keys");
-
-	attroff(COLOR_PAIR(1));
-
 
 	return footer;
 

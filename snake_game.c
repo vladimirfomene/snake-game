@@ -1,20 +1,18 @@
 /*********************************
 * snake_game.c
 * ================================
-* Copyright Vladimir Fomene 2018
 * This program is my own version of the
 * classical snake game program. This
 * file directs the whole process of 
 * of playing the game.
+* Copyright Vladimir Fomene 2018
 **********************************/
+
+#include <unistd.h>
+
 
 #include "snake.h"
 
-
-typedef struct cors{
-	int y;
-	int x;
-}point;
 
 void drop_diamond(GameWindow* win, Snake_part* diamond, point pt);
 bool is_diamond_on_snake(Snake* snake, int ptx, int pty);
@@ -22,7 +20,7 @@ point generate_point(GameWindow* win, Snake* snake);
 bool has_collided_with_self(Snake* snake);
 bool has_collided_with_walls(Snake* snake, GameWindow* win);
 bool has_collided_with_diamond(Snake* snake, Snake_part* diamond);
-void free_window_resources(WINDOW* footer, WINDOW* header, GameWindow* win, Snake_part* diamond);
+void free_game_resources(WINDOW* footer, WINDOW* header, GameWindow* win, Snake_part* diamond);
 void handle_exit(GameWindow* win, char* msg);
 Snake_part* init_diamond();
 void quit();
@@ -32,7 +30,7 @@ void game_pause();
 
 int main(void){
 
-	GameWindow* win = draw_game_screen();
+	GameWindow* win = draw_game_canvas();
 	WINDOW* header = setup_header(win);
 	WINDOW* footer = setup_footer(win);
 	Snake* snake = init_snake(win);
@@ -64,9 +62,8 @@ int main(void){
 
 		switch(player_option){
 				case 'q':
-					//free all resources
 					quit();
-					free_window_resources(footer, header, win, diamond);
+					free_game_resources(footer, header, win, diamond);
 					return 0;
 				case 'p':
 					game_pause();
@@ -125,7 +122,7 @@ int main(void){
 			if(win->num_squares_per_level == 0){
 				if(win->level == NUMBER_OF_LEVELS){
 					handle_exit(win, "You Won!!!!!, Press q to quit the game");
-					free_window_resources(footer, header, win, diamond);
+					free_game_resources(footer, header, win, diamond);
 					quit();
 					return 0;
 				}else{
@@ -145,7 +142,7 @@ int main(void){
 
 		if(has_collided_with_walls(snake, win) || has_collided_with_self(snake)){
 			handle_exit(win, "You Loose!!, Press q to quit the game");
-			free_window_resources(footer, header, win, diamond);
+			free_game_resources(footer, header, win, diamond);
 			quit();
 			return 0;
 		}
@@ -228,7 +225,7 @@ void quit(){
 	endwin();
 }
 
-void free_window_resources(WINDOW* footer, WINDOW* header, GameWindow* win, Snake_part* diamond){
+void free_game_resources(WINDOW* footer, WINDOW* header, GameWindow* win, Snake_part* diamond){
 	discard_screen(footer);
 	discard_screen(header);
 	discard_screen(win->canvas);

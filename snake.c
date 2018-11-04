@@ -1,9 +1,9 @@
 /*********************************
 * snake.c
 * ================================
-* Copyright Vladimir Fomene 2018
 * Implements all the functions prototypes
-* for a snake's behaviour
+* for the snake's behaviour
+* Copyright Vladimir Fomene 2018
 **********************************/
 
 #include "snake.h"

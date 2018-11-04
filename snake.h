@@ -1,11 +1,10 @@
 /*********************************
 * snake.h
 * ================================
-* Copyright Vladimir Fomene 2018
 * Defines an object for the snake
 * and define function prototypes
-* to define its behaviour.
-*
+* for its behaviour.
+* Copyright Vladimir Fomene 2018
 **********************************/
 
 #include <ncurses.h>
@@ -13,7 +12,6 @@
 #include "game_window.h"
 
 
-#define INITIAL_LENGTH 5
 
 //Attributes which define the state of the snake
 typedef struct part{
